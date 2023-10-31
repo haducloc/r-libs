@@ -1,7 +1,10 @@
-lp_summary_df <- function(df) {
+lp_df_summary <- function(df) {
+  # Validate
   if (!is.data.frame(df) && !inherits(df, "tbl_df")) {
     stop("The given df must be a data frame or tibble.")
   }
+  
+  # Duplicate
   has_duplicates <- any(duplicated(df))
   
   # unique
