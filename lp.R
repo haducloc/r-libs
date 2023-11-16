@@ -34,5 +34,5 @@ lp_df_summary <- function(df) {
     "\n------------------------------------------------------------------------|",
     "\n\n"
   )
-  return(summary_string)
+  cat(summary_string)
 }
