@@ -1,4 +1,4 @@
-lp_df_summary <- function(df) {
+__lp_df_summary <- function(df) {
   # Validate
   if (!is.data.frame(df) && !inherits(df, "tbl_df")) {
     stop("The given df must be a data frame or tibble.")
@@ -37,8 +37,7 @@ lp_df_summary <- function(df) {
   return(summary_string)
 }
 
-lp_df_summary_print <- function(df) {
-  summary <- lp_df_summary(df)
+lp_df_summary <- function(df) {
+  summary <- __lp_df_summary(df)
   cat(summary)
 }
-                     
