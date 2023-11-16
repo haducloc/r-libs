@@ -1,4 +1,4 @@
-__lp_df_sum <- function(df) {
+lp_df_sum_ <- function(df) {
   # Validate
   if (!is.data.frame(df) && !inherits(df, "tbl_df")) {
     stop("The given df must be a data frame or tibble.")
@@ -38,6 +38,6 @@ __lp_df_sum <- function(df) {
 }
 
 lp_df_sum <- function(df) {
-  info <- __lp_df_sum(df)
+  info <- lp_df_sum_(df)
   cat(info)
 }
