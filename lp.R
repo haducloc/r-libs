@@ -34,5 +34,11 @@ lp_df_summary <- function(df) {
     "\n------------------------------------------------------------------------|",
     "\n\n"
   )
-  cat(summary_string)
+  return(summary_string)
 }
+
+lp_df_summary_print <- function(df) {
+  summary <- lp_df_summary(df)
+  cat(summary)
+}
+                     
