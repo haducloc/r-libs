@@ -41,3 +41,14 @@ lp_df_sum <- function(df) {
   info <- lp_df_sum_(df)
   cat(info)
 }
+
+lp_df_values <- function(df, columns) {
+  result <- character(length(columns))
+  
+  for (i in seq_along(columns)) {
+    col <- columns[i]
+    unique_values <- unique(df[[col]])
+    result[i] <- paste("Unique values for column ", col, ": ", toString(unique_values))
+  }
+  return(result)
+}
