@@ -13,11 +13,11 @@ lp_df_sum_ <- function(df) {
       if (length(output) == 0) {
         output <- current_value_str
       } else {
-        current_output <- paste(output, current_value_str, sep = ", ")
-        if (nchar(current_output) <= 32) {
+        current_output <- paste(output, current_value_str, sep = ",")
+        if (nchar(current_output) <= 64) {
           output <- current_output
         } else {
-          output <- paste(output, ", ... more", sep = "")
+          output <- paste(output, "...", sep = "")
           break
         }
       }
