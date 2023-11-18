@@ -17,13 +17,13 @@ lp_df_sum_ <- function(df) {
         if (nchar(current_output) <= 80) {
           output <- current_output
         } else {
-          output <- paste(output, "...", sep = "")
+          output <- paste(output, ",...", sep = "")
           break
         }
       }
     }
   
-    return (paste(output, "(", total_values, " values)", sep=""))
+    return (paste(output, " (", total_values, " values)", sep=""))
   }
 
   # List of Columns
