@@ -37,8 +37,8 @@ lp_df_sum_ <- function(df) {
     is_unique <- length(unique(df[[col_name]])) == nrow(df)
     
     result <- paste(result, i, ". ", col_name, ": ", col_type,
-                    if (has_na) ", NA=yes" else ", NA=no",
-                    if (is_unique) ", UNIQUE=yes\n" else ", UNIQUE=no\n", sep="")
+                    if (has_na) ", NA: yes" else ", NA: no",
+                    if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
   }
   result <- paste(result, "\n", sep="")
   
