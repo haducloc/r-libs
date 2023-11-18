@@ -1,7 +1,7 @@
 lp_df_sum_ <- function(df) {
   
   get_distinct_values <- function(column_values) {
-    unique_values <- unique(column_values)
+    unique_values <- sort(unique(column_values))
     output <- character(0)
   
     total_values <- length(unique_values)
