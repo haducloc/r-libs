@@ -13,8 +13,8 @@ lp_df_sum_ <- function(df) {
       if (length(output) == 0) {
         output <- current_value_str
       } else {
-        current_output <- paste(output, current_value_str, sep = ", ")
-        if (nchar(current_output) <= 64) {
+        current_output <- paste(output, current_value_str, sep = ",")
+        if (nchar(current_output) <= 80) {
           output <- current_output
         } else {
           output <- paste(output, "...", sep = "")
@@ -23,12 +23,12 @@ lp_df_sum_ <- function(df) {
       }
     }
   
-    return (paste(output, "(", total_values, " values)"))
+    return (paste(output, "(", total_values, " values)", sep=""))
   }
 
   # List of Columns
   
-  result <- paste("***** Data Frame:", paste(ncol(df), "columns x", nrow(df), "rows\n\n"))
+  result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows\n\n", sep=""))
                   
   for (i in 1:ncol(df)) {
     col_name <- names(df)[i]
@@ -36,21 +36,21 @@ lp_df_sum_ <- function(df) {
     has_na <- any(is.na(df[[col_name]]))
     is_unique <- length(unique(df[[col_name]])) == nrow(df)
     
-    result <- paste(result, i, "-", col_name, ":", col_type,
+    result <- paste(result, i, ". ", col_name, ": ", col_type,
                     if (has_na) ", has NA" else "",
-                    if (is_unique) ", is UNIQUE\n" else "\n")
+                    if (is_unique) ", is UNIQUE\n" else "\n", sep="")
   }
-  result <- paste(result, "\n")
+  result <- paste(result, "\n", sep="")
   
   # Column Distinct Values
-  result <- paste(result, "***** Column distinct values:\n\n")
+  result <- paste(result, "***** Column distinct values:\n\n", sep="")
   for (i in 1:ncol(df)) {
     col_name <- names(df)[i]
     distinct_values <- get_distinct_values(df[[col_name]])
-    result <- paste(result, i, "-", col_name, ":", distinct_values, "\n")
+    result <- paste(result, i, ". ", col_name, ": ", distinct_values, "\n", sep="")
   }
   
-  return(paste(result, "\n"))
+  return(paste(result, "\n", sep=""))
 }
 
 lp_df_sum <- function(df) {
