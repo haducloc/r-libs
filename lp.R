@@ -1,4 +1,4 @@
-lp_df_sum_ <- function(df) {
+lp_df_sum_ <- function(df, type, line_width) {
   
   get_distinct_values <- function(column_values) {
     unique_values <- sort(unique(column_values), na.last = FALSE)
@@ -14,7 +14,7 @@ lp_df_sum_ <- function(df) {
         output <- current_value_str
       } else {
         current_output <- paste(output, current_value_str, sep = ",")
-        if (nchar(current_output) <= 80) {
+        if (nchar(current_output) <= line_width) {
           output <- current_output
         } else {
           output <- paste(output, ",...", sep = "")
@@ -22,38 +22,47 @@ lp_df_sum_ <- function(df) {
         }
       }
     }
-  
-    return (paste(output, " (", total_values, " values)", sep=""))
+    
+    return (paste(output, " (", total_values, ")", sep=""))
   }
 
-  # List of Columns
-  
-  result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows\n\n", sep=""))
-                  
-  for (i in 1:ncol(df)) {
-    col_name <- names(df)[i]
-    col_type <- class(df[[col_name]])
-    has_na <- any(is.na(df[[col_name]]))
-    is_unique <- length(unique(df[[col_name]])) == nrow(df)
+  # Spec
+  if (type == "spec") {
     
-    result <- paste(result, i, ". ", col_name, ": ", col_type,
-                    if (has_na) ", NA: yes" else ", NA: no",
-                    if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
+    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows\n\n", sep=""))
+                    
+    for (i in 1:ncol(df)) {
+      col_name <- names(df)[i]
+      col_type <- class(df[[col_name]])
+      has_na <- any(is.na(df[[col_name]]))
+      is_unique <- length(unique(df[[col_name]])) == nrow(df)
+      
+      result <- paste(result, i, ". ", col_name, ": ", col_type,
+                      if (has_na) ", NA: yes" else ", NA: no",
+                      if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
+    }
+                      
+    result <- paste(result, "\n", sep="")
+    return(result)
   }
-  result <- paste(result, "\n", sep="")
-  
-  # Column Distinct Values
-  result <- paste(result, "***** Column Sorted Distinct Values:\n\n", sep="")
-  for (i in 1:ncol(df)) {
-    col_name <- names(df)[i]
-    distinct_values <- get_distinct_values(df[[col_name]])
-    result <- paste(result, i, ". ", col_name, ": ", distinct_values, "\n", sep="")
+                    
+  # Distinct Values
+  if (type == "data") {
+      result <- paste(result, "***** Sorted Distinct Values:\n\n", sep="")
+    
+      for (i in 1:ncol(df)) {
+        col_name <- names(df)[i]
+        distinct_values <- get_distinct_values(df[[col_name]])
+        result <- paste(result, i, ". ", col_name, ": ", distinct_values, "\n", sep="")
+      }
+      result <- paste(result, "\n", sep="")
+      return(result)
   }
-  
-  return(paste(result, "\n", sep=""))
+
+  stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
 }
 
-lp_df_sum <- function(df) {
-  info <- lp_df_sum_(df)
+lp_df_sum <- function(df, type="spec", line_width=80) {
+  info <- lp_df_sum_(df, type, line_width)
   cat(info)
 }
