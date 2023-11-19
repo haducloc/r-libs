@@ -82,6 +82,10 @@ lp_df_sum <- function(df, type="spec", line_width=100, columns=NULL) {
     stop("Error: type is invalid. It must be 'spec' or 'data'.")
   }
   
+  if (!is.null(columns) && !is.character(columns)) {
+    stop("Error: columns must be a character vector.")
+  }
+  
   info <- lp_df_sum_(df, type, line_width, columns)
   cat(info)
 }
