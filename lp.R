@@ -23,7 +23,7 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
       }
     }
 
-    return(paste(output, " (", total_values, " values)", sep=""))
+    return(paste("(", output, ") <", total_values, ">", sep=""))
   }
 
   # Spec
@@ -57,7 +57,7 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
       if (col_name %in% names(df)) {
         col_index <- which(names(df) == col_name)  # Find the index of the column
         distinct_values <- get_distinct_values(df[[col_name]])
-        result <- paste(result, col_index, ". ", col_name, ": ", distinct_values, "\n", sep="")
+        result <- paste(result, col_index, ". ", col_name, "\n", distinct_values, "\n", sep="")
       } else {
         warning(paste("Column '", col_name, "' not found in the data frame.\n", sep=""))
       }
