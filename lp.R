@@ -48,15 +48,16 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
   # Distinct Values
   if (type == "data") {
     result <- paste("***** Sorted Distinct Values:\n\n", sep="")
-
+  
     if (is.null(columns) || length(columns) == 0) {
       columns <- names(df)
     }
-
+  
     for (col_name in columns) {
       if (col_name %in% names(df)) {
+        col_index <- which(names(df) == col_name)  # Find the index of the column
         distinct_values <- get_distinct_values(df[[col_name]])
-        result <- paste(result, col_name, ": ", distinct_values, "\n", sep="")
+        result <- paste(result, col_index, ". ", col_name, ": ", distinct_values, "\n", sep="")
       } else {
         warning(paste("Column '", col_name, "' not found in the data frame.", sep=""))
       }
