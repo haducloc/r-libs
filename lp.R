@@ -66,7 +66,7 @@ lp_df_sum <- function(df, type="spec", line_width=100) {
   if (!is.character(type)) {
     stop("Error: type must be a character.")
   }
-  if (!is.integer(line_width)) {
+  if (!is.numeric(line_width)) {
     stop("Error: line_width must be an integer.")
   }
   
