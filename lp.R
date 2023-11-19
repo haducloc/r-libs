@@ -59,7 +59,7 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
         distinct_values <- get_distinct_values(df[[col_name]])
         result <- paste(result, col_index, ". ", col_name, ": ", distinct_values, "\n", sep="")
       } else {
-        warning(paste("Column '", col_name, "' not found in the data frame.", sep=""))
+        warning(paste("Column '", col_name, "' not found in the data frame.\n", sep=""))
       }
     }
     result <- paste(result, "\n", sep="")
