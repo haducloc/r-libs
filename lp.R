@@ -73,8 +73,8 @@ lp_df_sum <- function(df, type="spec", line_width=100, columns=NULL) {
   if (!is.character(type)) {
     stop("Error: type must be a character.")
   }
-  if (!is.numeric(line_width) | line_width <= 0) {
-    stop("Error: line_width must be a positive integer.")
+  if (!is.numeric(line_width)) {
+    stop("Error: line_width must be an integer.")
   }
   
   types <- c('spec', 'data')
@@ -85,6 +85,10 @@ lp_df_sum <- function(df, type="spec", line_width=100, columns=NULL) {
   
   if (!is.null(columns) && !is.character(columns)) {
     stop("Error: columns must be a character vector.")
+  }
+
+  if (line_width < 80) {
+    line_width <- 80
   }
   
   info <- lp_df_sum_(df, type, line_width, columns)
