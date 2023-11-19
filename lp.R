@@ -62,7 +62,20 @@ lp_df_sum_ <- function(df, type, line_width) {
   stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
 }
 
-lp_df_sum <- function(df, type="spec", line_width=80) {
+lp_df_sum <- function(df, type="spec", line_width=100) {
+  if (!is.character(type)) {
+    stop("Error: type must be a character.")
+  }
+  if (!is.integer(line_width)) {
+    stop("Error: line_width must be an integer.")
+  }
+  
+  types <- c('spec', 'data')
+
+  if (!(type %in% types)) {
+    stop("Error: type is invalid. It must be 'spec' or 'data'.")
+  }
+  
   info <- lp_df_sum_(df, type, line_width)
   cat(info)
 }
