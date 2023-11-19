@@ -30,22 +30,15 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
   if (type == "spec") {
     result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows\n\n", sep=""))
 
-    if (is.null(columns) || length(columns) == 0) {
-      columns <- names(df)
-    }
-
-    for (col_name in columns) {
-      if (col_name %in% names(df)) {
-        col_type <- class(df[[col_name]])
-        has_na <- any(is.na(df[[col_name]]))
-        is_unique <- length(unique(df[[col_name]])) == nrow(df)
-
-        result <- paste(result, col_name, ": ", col_type,
-                        if (has_na) ", NA: yes" else ", NA: no",
-                        if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
-      } else {
-        warning(paste("Column '", col_name, "' not found in the data frame.", sep=""))
-      }
+    for (i in 1:ncol(df)) {
+      col_name <- names(df)[i]
+      col_type <- class(df[[col_name]])
+      has_na <- any(is.na(df[[col_name]]))
+      is_unique <- length(unique(df[[col_name]])) == nrow(df)
+      
+      result <- paste(result, i, ". ", col_name, ": ", col_type,
+                      if (has_na) ", NA: yes" else ", NA: no",
+                      if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
     }
 
     result <- paste(result, "\n", sep="")
