@@ -23,7 +23,7 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
       }
     }
 
-    return(paste(output, " (", total_values, ")", sep=""))
+    return(paste(output, " (", total_values, " values)", sep=""))
   }
 
   # Spec
