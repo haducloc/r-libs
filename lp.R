@@ -48,7 +48,7 @@ lp_df_sum_ <- function(df, type, line_width) {
                     
   # Distinct Values
   if (type == "data") {
-      result <- paste(result, "***** Sorted Distinct Values:\n\n", sep="")
+      result <- paste("***** Sorted Distinct Values:\n\n", sep="")
     
       for (i in 1:ncol(df)) {
         col_name <- names(df)[i]
