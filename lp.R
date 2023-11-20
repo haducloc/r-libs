@@ -102,5 +102,4 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
     return()
   }
 
-  stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
 }
