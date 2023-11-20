@@ -64,7 +64,7 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
   if (type == "spec") {
     duplicates <- has_duplicates(df)
 
-    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows ", if (duplicates) ", duplicates: yes\n\n" else ", duplicates: no\n\n", sep=""))
+    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows, duplicates: ", if (duplicates) "yes" else "no", "\n\n", sep=""))
 
     for (i in 1:ncol(df)) {
       col_name <- names(df)[i]
@@ -74,7 +74,7 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
       
       result <- paste(result, i, ". ", col_name, ": ", col_type,
                       if (has_na) ", NA: yes" else ", NA: no",
-                      if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
+                      if (is_unique) ", Unique: yes" else ", Unique: no", "\n", sep="")
     }
 
     cat(result)
