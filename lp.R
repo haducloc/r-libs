@@ -71,8 +71,11 @@ lp_df_sum <-
             ncol(df),
             " columns x ",
             nrow(df),
-            " rows, duplicates: ",
-            if (duplicates) "yes" else "no",
+            " rows",
+            if (duplicates)
+              ", duplicates: yes"
+            else
+              ", duplicates: no",
             "\n\n",
             sep = ""
           )
@@ -91,8 +94,14 @@ lp_df_sum <-
           col_name,
           ": ",
           col_type,
-          if (has_na) ", NA: yes" else ", NA: no",
-          if (is_unique) ", Unique: yes" else ", Unique: no",
+          if (has_na)
+            ", NA: yes"
+          else
+            ", NA: no",
+          if (is_unique)
+            ", Unique: yes"
+          else
+            ", Unique: no",
           "\n",
           sep = ""
         )
