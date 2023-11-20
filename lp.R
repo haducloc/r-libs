@@ -27,7 +27,7 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
 
   # Check for duplicated rows in a data frame
   has_duplicates <- function(df) {
-    any(duplicated(df) | duplicated(df, fromLast = TRUE))
+    return(any(duplicated(df) | duplicated(df, fromLast = TRUE)))
   }
   
   # Convert the list of values to string
@@ -74,8 +74,9 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
                       if (is_unique) ", Unique: yes" else ", Unique: no", "\n", sep="")
     }
 
+    result <- paste(result, "\n", sep="")
     cat(result)
-    return("")
+    return()
   }
 
   # Distinct Values
@@ -96,8 +97,9 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
       }
     }
 
+    result <- paste(result, "\n", sep="")
     cat(result)
-    return("")
+    return()
   }
 
   stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
