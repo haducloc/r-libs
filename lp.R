@@ -27,12 +27,9 @@ lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
 
   # Check for duplicated rows in a data frame
   has_duplicates <- function(df) {
-    if (nrow(df) == 0) {
-      return(FALSE)
-    }
-    any(apply(df, 1, function(row) any(duplicated(row))))
+    any(duplicated(df) | duplicated(df, fromLast = TRUE))
   }
-
+  
   # Convert the list of values to string
   get_distinct_values <- function(column_values) {
     unique_values <- sort(unique(column_values), na.last = FALSE)
