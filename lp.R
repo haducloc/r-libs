@@ -1,7 +1,7 @@
 #
 # This function will discover the given data frame or tibble
 #
-lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
+lp_df_sum <- function(df, type="spec", line_width=80, columns=NULL) {
 
   # Validation
   if (!is.character(type)) {
@@ -11,7 +11,7 @@ lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
     stop("Error: line_width must be an integer.")
   }
   
-  types <- c('spec', 'data')
+  types <- c("spec", "data")
 
   if (!(type %in% types)) {
     stop("Error: type is invalid. It must be 'spec' or 'data'.")
@@ -64,7 +64,7 @@ lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
   if (type == "spec") {
     duplicates <- has_duplicates(df)
 
-    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows ", if (duplicates) ", duplicates: yes" else ", duplicates: no", sep=""))
+    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows ", if (duplicates) ", duplicates: yes\n\n" else ", duplicates: no\n\n", sep=""))
 
     for (i in 1:ncol(df)) {
       col_name <- names(df)[i]
@@ -77,9 +77,8 @@ lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
                       if (is_unique) ", Unique: yes\n" else ", Unique: no\n", sep="")
     }
 
-    result <- paste(result, "\n", sep="")
     cat(result)
-    return(NULL)
+    return("")
   }
 
   # Distinct Values
@@ -99,9 +98,9 @@ lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
         warning(paste("Column '", col_name, "' not found in the data frame.\n", sep=""))
       }
     }
-    result <- paste(result, "\n", sep="")
+
     cat(result)
-    return(NULL)
+    return("")
   }
 
   stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
