@@ -1,5 +1,39 @@
-lp_df_sum_ <- function(df, type, line_width, columns) {
+#
+# This function will discover the given data frame or tibble
+#
+lp_df_sum <- function(df, type='spec', line_width=80, columns=NULL) {
 
+  # Validation
+  if (!is.character(type)) {
+    stop("Error: type must be a character.")
+  }
+  if (!is.numeric(line_width)) {
+    stop("Error: line_width must be an integer.")
+  }
+  
+  types <- c('spec', 'data')
+
+  if (!(type %in% types)) {
+    stop("Error: type is invalid. It must be 'spec' or 'data'.")
+  }
+  
+  if (!is.null(columns) && !is.character(columns)) {
+    stop("Error: columns must be a character vector.")
+  }
+
+  if (line_width < 80) {
+    line_width <- 80
+  }
+
+  # Check for duplicated rows in a data frame
+  has_duplicates <- function(df) {
+    if (nrow(df) == 0) {
+      return(FALSE)
+    }
+    any(apply(df, 1, function(row) any(duplicated(row))))
+  }
+
+  # Convert the list of values to string
   get_distinct_values <- function(column_values) {
     unique_values <- sort(unique(column_values), na.last = FALSE)
     output <- character(0)
@@ -28,7 +62,9 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
 
   # Spec
   if (type == "spec") {
-    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows\n\n", sep=""))
+    duplicates <- has_duplicates(df)
+
+    result <- paste("***** Data Frame: ", paste(ncol(df), " columns x ", nrow(df), " rows ", if (duplicates) ", duplicates: yes" else ", duplicates: no", sep=""))
 
     for (i in 1:ncol(df)) {
       col_name <- names(df)[i]
@@ -42,7 +78,8 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
     }
 
     result <- paste(result, "\n", sep="")
-    return(result)
+    cat(result)
+    return(NULL)
   }
 
   # Distinct Values
@@ -63,34 +100,9 @@ lp_df_sum_ <- function(df, type, line_width, columns) {
       }
     }
     result <- paste(result, "\n", sep="")
-    return(result)
+    cat(result)
+    return(NULL)
   }
 
   stop("Error: The given type is invalid. It must be 'spec' or 'data'.")
-}
-
-lp_df_sum <- function(df, type="spec", line_width=100, columns=NULL) {
-  if (!is.character(type)) {
-    stop("Error: type must be a character.")
-  }
-  if (!is.numeric(line_width)) {
-    stop("Error: line_width must be an integer.")
-  }
-  
-  types <- c('spec', 'data')
-
-  if (!(type %in% types)) {
-    stop("Error: type is invalid. It must be 'spec' or 'data'.")
-  }
-  
-  if (!is.null(columns) && !is.character(columns)) {
-    stop("Error: columns must be a character vector.")
-  }
-
-  if (line_width < 80) {
-    line_width <- 80
-  }
-  
-  info <- lp_df_sum_(df, type, line_width, columns)
-  cat(info)
 }
