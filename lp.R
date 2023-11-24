@@ -4,7 +4,7 @@
 lp_df_sum <-
   function(df,
            type = "spec",
-           line_width = 80,
+           line_width = 100,
            columns = NULL) {
     # Validation
     if (!is.character(type)) {
@@ -114,7 +114,23 @@ lp_df_sum <-
     
     # Distinct Values
     if (type == "data") {
-      result <- paste("***** Sorted Distinct Values:\n\n", sep = "")
+
+      result <-
+        paste(
+          "***** Sorted Distinct Values: ",
+          paste(
+            ncol(df),
+            " columns x ",
+            nrow(df),
+            " rows",
+            if (duplicates)
+              ", duplicates: yes"
+            else
+              ", duplicates: no",
+            "\n\n",
+            sep = ""
+          )
+        )
       
       if (is.null(columns) || length(columns) == 0) {
         columns <- names(df)
