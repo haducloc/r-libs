@@ -114,6 +114,7 @@ lp_df_sum <-
     
     # Distinct Values
     if (type == "data") {
+      duplicates <- has_duplicates(df)
 
       result <-
         paste(
